@@ -5,3 +5,4 @@ export * from './ResultPanel';
 export * from './Searchbar';
 export * from './GitLogo';
 export * from './Avatar';
+export * from './types';
