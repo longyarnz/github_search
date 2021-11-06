@@ -1,7 +1,11 @@
 {
   "name": "indicina",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "author": {
+    "email": "longyarnz@gmail.com",
+    "name": "Olalekan Ayodele"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
