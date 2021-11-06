@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ShouldRender } from 'should-render';
 import { Pages } from '../components';
-import { Landing } from '../pages';
+import { Landing, Search } from '../pages';
 import { Wrapper } from './AppStyles'
 
 export const App = () => {
@@ -13,6 +13,9 @@ export const App = () => {
         <Landing changePageTo={setPage} />
       </ShouldRender>
 
+      <ShouldRender if={page === Pages.SEARCH}>
+        <Search changePageTo={setPage} />
+      </ShouldRender>
     </Wrapper>
   )
 }
