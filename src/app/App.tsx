@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { ShouldRender } from 'should-render';
 import { Pages } from '../components';
 import { Landing } from '../pages';
 import { Wrapper } from './AppStyles'
