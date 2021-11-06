@@ -3,3 +3,7 @@ export enum Pages {
   SEARCH = 'search',
   RESULT = 'result'
 }
+
+export interface PageInterface {
+  readonly changePageTo?: React.Dispatch<React.SetStateAction<Pages>>
+}
