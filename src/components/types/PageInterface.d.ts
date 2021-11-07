@@ -6,4 +6,5 @@ export enum Pages {
 
 export interface PageInterface {
   readonly changePageTo?: React.Dispatch<React.SetStateAction<Pages>>
+  readonly logout?: () => void
 }
