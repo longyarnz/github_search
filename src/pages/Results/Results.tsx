@@ -56,8 +56,20 @@ export const Results: FC<Props> = (props) => {
         <Avatar logout={logout} goBack={goBack} />
       </header>
       <div>
-        <ResultSidebar />
-        <ResultPanel />
+        <ResultSidebar
+          userCount={userCount}
+          repoCount={repoCount}
+          isFetchingUsers={isFetchingUsers}
+          isFetchingRepository={isFetchingRepository}
+        />
+        <ResultPanel
+          userCount={userCount}
+          repoCount={repoCount}
+          repos={repos}
+          users={users}
+          isFetchingUsers={isFetchingUsers}
+          isFetchingRepository={isFetchingRepository}
+        />
       </div>
     </Wrapper>
   )
