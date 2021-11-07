@@ -1,61 +1,59 @@
 import React, { FC } from 'react'
 import { FlatList } from '@longyarnz/flat-list'
 import { Wrapper } from './ResultPanelStyles'
-import { ResultTab } from '../ResultTab'
-
-const test = [
-  {
-    header: "DrKLO/Telegram",
-    subheader: "Telegram for Android source",
-    stars: "17.2",
-    language: "Java",
-    license: "GPL-2.0 License",
-    time: "4 hours ago"
-  },
-  {
-    header: "DrKLO/Telegram",
-    subheader: "Telegram for Android source",
-    stars: "17.2",
-    language: "Java",
-    license: "GPL-2.0 License",
-    time: "4 hours ago"
-  },
-]
-
-type List = {
-  readonly header: string
-  readonly subheader: string
-  readonly stars: string
-  readonly license: string
-  readonly language: string
-  readonly time: string
-}
+import { UserResultTab, RepoResultTab, ResultType, UserType, RepositoryType } from '../'
+import { ShouldRender } from 'should-render'
+import { Spinner } from '../Spinner'
 
 interface Props {
-  readonly type?: 'repository' | 'user'
-  readonly count?: number
-  readonly list?: List[]
+  readonly type: ResultType
+  readonly userCount: number
+  readonly repoCount: number
+  readonly users: UserType[]
+  readonly repos: RepositoryType[]
+  readonly isFetchingRepository: boolean
+  readonly isFetchingUsers: boolean
 }
 
 export const ResultPanel: FC<Props> = (props) => {
-  const { type = 'repository', count = 2096, list = test } = props
+  const { type, users, repos, userCount, repoCount, isFetchingUsers, isFetchingRepository } = props
+  const resultIsUserTyped = type === ResultType.USER
+  const count = resultIsUserTyped ? userCount : repoCount
+  const list = resultIsUserTyped ? users : repos
+  const Tab = resultIsUserTyped ? UserResultTab : RepoResultTab
+  const loading = resultIsUserTyped ? isFetchingUsers : isFetchingRepository
+  const header = loading ? 'Searching GitHub...' : `${Number(count).toLocaleString()} ${type} results`
 
   return (
-    <Wrapper>
-      <h2>
-        {count} {type} results
-      </h2>
+    <Wrapper $loading={loading}>
+      <h2>{header}</h2>
       <div>
-        <FlatList
-          list={list}
-          listView={(item) => {
-            return (
-              <ResultTab
-                {...item}
-              />
-            )
-          }}
-        />
+        <ShouldRender if={!loading}>
+          <FlatList
+            list={list as Partial<UserType & RepositoryType>[]}
+            listView={(item) => {
+              if (!resultIsUserTyped) {
+                item.language = item.languages.nodes[0]?.name ?? '-'
+                item.license = item.licenseInfo?.name ?? '-'
+              }
+
+              return item.name ? (
+                <Tab
+                  key={item.name}
+                  {...item}
+                />
+              ) : null
+            }}
+          />
+        </ShouldRender>
+
+        <ShouldRender if={loading}>
+          <Spinner
+            size={50}
+            thickness={3}
+            color="#000"
+          />
+        </ShouldRender>
       </div>
     </Wrapper>
   )
