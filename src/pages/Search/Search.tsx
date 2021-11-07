@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Avatar, GitHubButton, GitLogo, PageInterface, Pages, Searchbar } from '../../components'
+import React, { FC, useRef } from 'react'
+import { Avatar, GitHubButton, GitLogo, PageInterface, Searchbar } from '../../components'
 import { Wrapper } from './SearchStyles'
 
 interface Props extends PageInterface {
@@ -7,12 +7,18 @@ interface Props extends PageInterface {
 }
 
 export const Search: FC<Props> = (props) => {
-  const { logout } = props
+  const { logout, setSearchText } = props
+  const formRef = useRef<HTMLFormElement>(null)
 
   const startSearch = () => {
-    changePageTo(Pages.RESULT)
+    formRef.current?.requestSubmit()
   }
 
+  const getSearchText = (text: string) => {
+    sessionStorage.setItem('SEARCH_QUERY', text)
+    setSearchText(text)
+  }
+  
   return (
     <Wrapper>
       <header>
@@ -20,7 +26,7 @@ export const Search: FC<Props> = (props) => {
       </header>
       <div>
         <GitLogo />
-        <Searchbar />
+        <Searchbar form={formRef} getSearchText={getSearchText} />
         <GitHubButton text="Search GitHub" onClick={startSearch} />
       </div>
     </Wrapper>

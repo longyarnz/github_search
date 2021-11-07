@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'react-tippy/dist/tippy.css';
 import './index.css';
 import { App } from './app';
 import reportWebVitals from './reportWebVitals';

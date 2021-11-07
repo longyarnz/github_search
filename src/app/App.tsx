@@ -7,16 +7,20 @@ import { Wrapper } from './AppStyles'
 export const App = () => {
   const [auth, setAuth] = useState<string>(sessionStorage.getItem('INDICINA_AUTH'))
   const [page, setPage] = useState(auth ? Pages.SEARCH : Pages.LANDING)
+  const [query, setQuery] = useState(sessionStorage.getItem('SEARCH_QUERY'))
 
   useEffect(() => {
     sessionStorage.setItem('INDICINA_AUTH', auth)
+    !auth && setQuery('')
     if (!auth) setPage(Pages.LANDING)
+    else if (auth && query) setPage(Pages.RESULT)
     else setPage(Pages.SEARCH)
-  }, [auth])
+  }, [auth, query])
 
   const logout = () => {
     sessionStorage.clear()
     setAuth('')
+    setQuery('')
   }
 
   return (
@@ -32,7 +36,9 @@ export const App = () => {
       <ShouldRender if={page === Pages.RESULT}>
         <Results
           logout={logout}
+          query={query}
           changePageTo={setPage}
+          setSearchText={setQuery}
         />
       </ShouldRender>
     </Wrapper>
