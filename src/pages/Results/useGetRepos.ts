@@ -32,6 +32,7 @@ export const useGetRepos = (query: string) => {
     repos,
     setAfter,
     repoCount: count,
+    repoPageInfo: pageInfo,
     isFetchingRepository: cache.current.query !== query
   }
 }

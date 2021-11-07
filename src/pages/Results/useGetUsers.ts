@@ -32,6 +32,7 @@ export const useGetUsers = (query: string) => {
     users,
     setAfter,
     userCount: count,
+    userPageInfo: pageInfo,
     isFetchingUsers: cache.current.query !== query
   }
 }

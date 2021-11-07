@@ -12,7 +12,8 @@ import {
   Searchbar,
   PageInterface,
   Pages,
-  ResultType
+  ResultType,
+  Pagination
 } from '../../components'
 import { Wrapper } from './ResultsStyles'
 import { useGetRepos } from './useGetRepos'
@@ -27,8 +28,8 @@ export const Results: FC<Props> = (props) => {
   const { changePageTo, logout, query, setSearchText } = props
   const formRef = useRef<HTMLFormElement>(null)
   const [type, setType] = useState(ResultType.REPOSITORY)
-  const { users, userCount, isFetchingUsers } = useGetUsers(query)
-  const { repos, repoCount, isFetchingRepository } = useGetRepos(query)
+  const { users, userCount, isFetchingUsers, userPageInfo } = useGetUsers(query)
+  const { repos, repoCount, isFetchingRepository, repoPageInfo } = useGetRepos(query)
 
   useLayoutEffect(() => {
     const input = formRef.current?.[0] as HTMLInputElement
@@ -75,6 +76,15 @@ export const Results: FC<Props> = (props) => {
           isFetchingRepository={isFetchingRepository}
         />
       </div>
+      <Pagination
+        type={type}
+        userCount={userCount}
+        repoCount={repoCount}
+        userPageInfo={userPageInfo}
+        repoPageInfo={repoPageInfo}
+        isFetchingUsers={isFetchingUsers}
+        isFetchingRepository={isFetchingRepository}
+      />
     </Wrapper>
   )
 }
