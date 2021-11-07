@@ -1,6 +1,7 @@
 export * from './Spinner'
 export * from './GitHubButton'
 export * from './ResultButton'
+export * from './RepoResultTab'
 export * from './ResultPanel'
 export * from './ResultSidebar'
 export * from './Searchbar'
