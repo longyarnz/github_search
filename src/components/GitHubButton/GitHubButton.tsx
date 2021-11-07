@@ -1,16 +1,23 @@
-import React, { ButtonHTMLAttributes, FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 import { Wrapper } from './GitHubButtonStyles'
 
-interface GitHubButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string
+interface Props {
+  text?: string
+  onClick?: () => void
+  children?: ReactNode
 }
 
-export const GitHubButton: FC<GitHubButtonProps> = (props) => {
-  const { text, ...rest } = props
+export const GitHubButton: FC<Props> = (props) => {
+  const { text, children, onClick } = props
+  const content = children || (
+    <button onClick={onClick}>
+      <span>{text}</span>
+    </button>
+  )
 
   return (
-    <Wrapper {...rest}>
-      <span>{text}</span>
+    <Wrapper>
+      {content}
     </Wrapper>
   )
 }
