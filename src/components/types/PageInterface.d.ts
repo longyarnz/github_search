@@ -8,3 +8,31 @@ export interface PageInterface {
   readonly changePageTo?: React.Dispatch<React.SetStateAction<Pages>>
   readonly logout?: () => void
 }
+
+export enum ResultType {
+  USER = 'user',
+  REPOSITORY = 'repository'
+}
+
+export type RepositoryType = {
+  readonly name: string
+  readonly description: string
+  readonly stars: string
+  readonly licenseInfo: {
+    name: string
+  }
+  readonly languages: {
+    nodes: [{
+      name: string
+    }]
+  }
+  language?: string
+  license?: string
+  readonly time: string
+}
+
+export type UserType = {
+  name: string
+  bio: string
+  login: string
+}
