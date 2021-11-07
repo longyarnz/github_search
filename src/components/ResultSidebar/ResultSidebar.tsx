@@ -1,43 +1,30 @@
 import React, { FC } from 'react'
-import { FlatList } from '@longyarnz/flat-list'
 import { Wrapper } from './ResultSidebarStyles'
-import { ResultButton } from '../ResultButton'
-
-type ResultValues = {
-  readonly text: string
-  readonly count: string
-}
+import { ResultButton } from '../'
 
 interface Props {
-  readonly values?: ResultValues[]
+  readonly userCount: number
+  readonly repoCount: number
+  readonly isFetchingRepository: boolean
+  readonly isFetchingUsers: boolean
 }
 
-const test = [
-  {
-    text: 'Lekan',
-    count: '100'
-  },
-  {
-    text: 'Babboe',
-    count: '500'
-  },
-]
-
 export const ResultSidebar: FC<Props> = (props) => {
-  const { values = test } = props
+  const { userCount, repoCount, isFetchingRepository, isFetchingUsers } = props
 
   return (
     <Wrapper>
-      <FlatList
-        list={values}
-        listView={({ text, count }) => (
-          <ResultButton
-            key={text}
-            text={text}
-            count={count}
-            active={text === 'Lekan'}
-          />
-        )}
+      <ResultButton
+        text="Repositories"
+        isLoading={isFetchingRepository}
+        count={Number(repoCount).toLocaleString()}
+        onClick={() => setType(ResultType.REPOSITORY)}
+      />
+      <ResultButton
+        text="Users"
+        isLoading={isFetchingUsers}
+        count={Number(userCount).toLocaleString()}
+        onClick={() => setType(ResultType.USER)}
       />
     </Wrapper>
   )
