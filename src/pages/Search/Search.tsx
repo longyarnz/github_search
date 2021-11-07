@@ -7,14 +7,10 @@ interface Props extends PageInterface {
 }
 
 export const Search: FC<Props> = (props) => {
-  const { changePageTo } = props
+  const { logout } = props
 
   const startSearch = () => {
     changePageTo(Pages.RESULT)
-  }
-  
-  const logout = () => {
-    changePageTo(Pages.LANDING)
   }
 
   return (

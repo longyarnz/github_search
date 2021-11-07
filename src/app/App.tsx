@@ -14,6 +14,11 @@ export const App = () => {
     else setPage(Pages.SEARCH)
   }, [auth])
 
+  const logout = () => {
+    sessionStorage.clear()
+    setAuth('')
+  }
+
   return (
     <Wrapper>
       <ShouldRender if={page === Pages.LANDING}>
@@ -21,11 +26,14 @@ export const App = () => {
       </ShouldRender>
 
       <ShouldRender if={page === Pages.SEARCH}>
-        <Search changePageTo={setPage} />
+        <Search logout={logout} />
       </ShouldRender>
 
       <ShouldRender if={page === Pages.RESULT}>
-        <Results changePageTo={setPage} />
+        <Results
+          logout={logout}
+          changePageTo={setPage}
+        />
       </ShouldRender>
     </Wrapper>
   )
