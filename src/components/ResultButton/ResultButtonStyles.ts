@@ -31,6 +31,7 @@ export const Wrapper = styled.button<Props>`
     align-items: center;
     width: max-content;
     min-width: 40px;
+    padding: 0px 10px;
     height: 20px;
     background-color: #DCDCDF;
     border-radius: 10px;
