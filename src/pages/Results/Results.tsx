@@ -26,6 +26,7 @@ interface Props extends PageInterface {
 export const Results: FC<Props> = (props) => {
   const { changePageTo, logout, query, setSearchText } = props
   const formRef = useRef<HTMLFormElement>(null)
+  const [type, setType] = useState(ResultType.REPOSITORY)
   const { users, userCount, isFetchingUsers } = useGetUsers(query)
   const { repos, repoCount, isFetchingRepository } = useGetRepos(query)
 
@@ -59,12 +60,15 @@ export const Results: FC<Props> = (props) => {
         <ResultSidebar
           userCount={userCount}
           repoCount={repoCount}
+          type={type}
+          setType={setType}
           isFetchingUsers={isFetchingUsers}
           isFetchingRepository={isFetchingRepository}
         />
         <ResultPanel
           userCount={userCount}
           repoCount={repoCount}
+          type={type}
           repos={repos}
           users={users}
           isFetchingUsers={isFetchingUsers}
