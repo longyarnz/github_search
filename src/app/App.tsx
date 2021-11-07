@@ -30,7 +30,7 @@ export const App = () => {
       </ShouldRender>
 
       <ShouldRender if={page === Pages.SEARCH}>
-        <Search logout={logout} />
+        <Search logout={logout} setSearchText={setQuery} />
       </ShouldRender>
 
       <ShouldRender if={page === Pages.RESULT}>
