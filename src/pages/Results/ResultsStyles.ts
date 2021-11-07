@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.section`
   width: 100vw;
-  height: 100vh;
+  height: max-content;
+  min-height: 100vh;
   background-color: #E5E5E5;
 
   & > header {
