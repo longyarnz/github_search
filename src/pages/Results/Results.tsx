@@ -15,6 +15,7 @@ import {
   ResultType
 } from '../../components'
 import { Wrapper } from './ResultsStyles'
+import { useGetRepos } from './useGetRepos'
 import { useGetUsers } from './useGetUsers'
 
 interface Props extends PageInterface {
@@ -26,6 +27,7 @@ export const Results: FC<Props> = (props) => {
   const { changePageTo, logout, query, setSearchText } = props
   const formRef = useRef<HTMLFormElement>(null)
   const { users, userCount, isFetchingUsers } = useGetUsers(query)
+  const { repos, repoCount, isFetchingRepository } = useGetRepos(query)
 
   useLayoutEffect(() => {
     const input = formRef.current?.[0] as HTMLInputElement
