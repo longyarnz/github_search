@@ -9,13 +9,17 @@ export const Wrapper = styled.div<Props>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 160px;
+  width: max-content;
   border: 1px solid transparent;
   border-radius: 50px;
   padding-right: 10px;
   cursor: pointer;
   position: relative;
   transition: all .5s ease;
+
+  & > * {
+    margin: 0 5px;
+  }
   
   & > img:first-of-type {
     z-index: 1;

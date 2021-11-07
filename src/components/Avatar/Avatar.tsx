@@ -2,18 +2,17 @@ import React, { FC, useState } from 'react'
 import { ShouldRender } from 'should-render'
 import { Wrapper } from './AvatarStyles'
 import caret from './caret.svg'
-import dummy from './dummy_avatar.png'
+import { useGitHubUser } from './useGitHubUser'
 
 interface Props {
-  readonly name?: string;
-  readonly picture?: string;
   readonly logout: () => void
   readonly goBack?: () => void
 }
 
 export const Avatar: FC<Props> = (props) => {
-  const { picture = dummy, name = 'John Doe', logout, goBack } = props
+  const { logout, goBack } = props
   const [toggle, setToggle] = useState(false)
+  const { name, avatarUrl } = useGitHubUser()
 
   const showDropdown = () => {
     setToggle(toggle => !toggle)
@@ -21,7 +20,7 @@ export const Avatar: FC<Props> = (props) => {
 
   return (
     <Wrapper $open={toggle} $back={!!goBack} onClick={showDropdown}>
-      <img src={picture} alt="User profile avatar" />
+      <img src={avatarUrl} alt="avatar" />
       <span>{name}</span>
       <img src={caret} alt="dropdown caret" />
       <div>
