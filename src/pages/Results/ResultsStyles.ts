@@ -15,6 +15,8 @@ export const Wrapper = styled.section`
     padding: 15px 40px;
     box-shadow: 0px 0px 5px 0px #C4CBD6B2;
     background-color: #FFF;
+    position: sticky;
+    top: 0px;
   }
 
   & > div {

@@ -9,4 +9,6 @@ export const Wrapper = styled.aside`
   background: #FFF;
   box-shadow: 0px 6px 58px 0px #C4CBD61A;
   border-radius: 3px;
+  position: sticky;
+  top: 110px;
 `
