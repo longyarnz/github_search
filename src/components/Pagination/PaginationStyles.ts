@@ -14,7 +14,6 @@ export const Wrapper = styled.footer`
       width: max-content;
       height: 40px;
       list-style: none;
-      padding: 10px;
       color: #B0B7C3;
       display: flex;
       justify-content: center;
@@ -47,10 +46,16 @@ export const Wrapper = styled.footer`
           transform: rotate(270deg);
         }
       }
+
+      &:nth-last-of-type(2) {
+        pointer-events: none;
+        opacity: .2;
+      }
       
       a {
         font-family: 'inter';
         font-weight: 500;
+        padding: 10px;
       }
     }
   }
