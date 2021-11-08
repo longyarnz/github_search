@@ -10,7 +10,7 @@ export const App = () => {
   const [query, setQuery] = useState(sessionStorage.getItem('SEARCH_QUERY'))
 
   useEffect(() => {
-    sessionStorage.setItem('INDICINA_AUTH', auth)
+    auth && sessionStorage.setItem('INDICINA_AUTH', auth)
     !auth && setQuery('')
     if (!auth) setPage(Pages.LANDING)
     else if (auth && query) setPage(Pages.RESULT)

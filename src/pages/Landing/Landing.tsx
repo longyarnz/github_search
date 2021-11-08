@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { LoginWithGitHubButton, useErrorHandler } from '../../components'
+import { client, LoginWithGitHubButton, useErrorHandler } from '../../components'
 import { Wrapper } from './LandingStyles'
 
 interface Props {
@@ -24,8 +24,11 @@ export const Landing: FC<Props> = (props) => {
     const response = await request.json()
     const accessToken = response?.data?.access_token as string
     const error = response?.data?.error as string
-    accessToken && authorizeUser(accessToken)
-    error && setError(error)
+    if (error) setError(error)
+    else if (accessToken) {
+      authorizeUser(accessToken)
+      client.setHeader('Authorization', `Bearer ${accessToken}`)
+    }
   }
 
   const login = (code: string) => {
