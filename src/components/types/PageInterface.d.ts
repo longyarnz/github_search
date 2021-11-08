@@ -36,3 +36,17 @@ export type UserType = {
   bio: string
   login: string
 }
+
+export type Variables = {
+  query?: string
+  first?: number
+  last?: number
+  after?: string
+  before?: string
+}
+
+export type PageInfo = {
+  startCursor?: string
+  endCursor?: string
+  hasNextPage?: boolean
+}

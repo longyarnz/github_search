@@ -5,10 +5,10 @@ interface Props {
 }
 
 export const Wrapper = styled.div<Props>`
-  ${({ $loading }) => `
+  ${({ $loading }) => $loading ? `
     width: 100%;
     padding: 20px;
-  `}
+  ` : ''}
 
   & > h2 {
     font-size: 20px;

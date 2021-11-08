@@ -1,28 +1,22 @@
 import React, { FC } from 'react'
 import { FlatList } from '@longyarnz/flat-list'
 import { Wrapper } from './ResultPanelStyles'
-import { UserResultTab, RepoResultTab, ResultType, UserType, RepositoryType } from '../'
+import { UserResultTab, RepoResultTab, UserType, RepositoryType, Spinner } from '../'
 import { ShouldRender } from 'should-render'
-import { Spinner } from '../Spinner'
 
 interface Props {
-  readonly type: ResultType
-  readonly userCount: number
-  readonly repoCount: number
-  readonly users: UserType[]
-  readonly repos: RepositoryType[]
-  readonly isFetchingRepository: boolean
-  readonly isFetchingUsers: boolean
+  readonly type: string
+  readonly count: number
+  readonly list: Partial<UserType & RepositoryType>[]
+  readonly isFetching: boolean
+  readonly resultIsUserType: boolean
 }
 
 export const ResultPanel: FC<Props> = (props) => {
-  const { type, users, repos, userCount, repoCount, isFetchingUsers, isFetchingRepository } = props
-  const resultIsUserTyped = type === ResultType.USER
-  const count = resultIsUserTyped ? userCount : repoCount
-  const list = resultIsUserTyped ? users : repos
-  const Tab = resultIsUserTyped ? UserResultTab : RepoResultTab
-  const loading = resultIsUserTyped ? isFetchingUsers : isFetchingRepository
-  const header = loading ? 'Searching GitHub...' : `${Number(count).toLocaleString()} ${type} results`
+  const { list, count, isFetching, resultIsUserType, type } = props
+  const Tab = resultIsUserType ? UserResultTab : RepoResultTab
+  const header = isFetching ? 'Searching GitHub...' : `${Number(count).toLocaleString()} ${type} results`
+  const loading = isFetching && list.length === 0
 
   return (
     <Wrapper $loading={loading}>
@@ -30,16 +24,19 @@ export const ResultPanel: FC<Props> = (props) => {
       <div>
         <ShouldRender if={!loading}>
           <FlatList
-            list={list as Partial<UserType & RepositoryType>[]}
+            list={list}
             listView={(item) => {
-              if (!resultIsUserTyped) {
+              let key = ''
+              if (!resultIsUserType) {
                 item.language = item.languages.nodes[0]?.name ?? '-'
                 item.license = item.licenseInfo?.name ?? '-'
+                key = item.name
               }
+              else key = `${item.name}${item.bio || item.login}`
 
               return item.name ? (
                 <Tab
-                  key={item.name}
+                  key={key}
                   {...item}
                 />
               ) : null

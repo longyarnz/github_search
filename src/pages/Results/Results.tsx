@@ -13,11 +13,13 @@ import {
   PageInterface,
   Pages,
   ResultType,
-  Pagination
+  Pagination,
+  UserType,
+  RepositoryType
 } from '../../components'
+import { GET_REPOSITORIES, GET_USERS } from './gql'
 import { Wrapper } from './ResultsStyles'
-import { useGetRepos } from './useGetRepos'
-import { useGetUsers } from './useGetUsers'
+import { useGitHubSearch } from './useGitHubSearch'
 
 interface Props extends PageInterface {
   readonly query: string
@@ -28,8 +30,20 @@ export const Results: FC<Props> = (props) => {
   const { changePageTo, logout, query, setSearchText } = props
   const formRef = useRef<HTMLFormElement>(null)
   const [type, setType] = useState(ResultType.REPOSITORY)
-  const { users, userCount, isFetchingUsers, userPageInfo } = useGetUsers(query)
-  const { repos, repoCount, isFetchingRepository, repoPageInfo } = useGetRepos(query)
+
+  const {
+    nodes: users,
+    count: userCount,
+    paginate: paginateUser,
+    isFetching: isFetchingUsers,
+  } = useGitHubSearch<UserType>(query, GET_USERS)
+
+  const {
+    nodes: repos,
+    count: repoCount,
+    paginate: paginateRepository,
+    isFetching: isFetchingRepository,
+  } = useGitHubSearch<RepositoryType>(query, GET_REPOSITORIES)
 
   useLayoutEffect(() => {
     const input = formRef.current?.[0] as HTMLInputElement
@@ -44,6 +58,8 @@ export const Results: FC<Props> = (props) => {
     sessionStorage.setItem('SEARCH_QUERY', text)
     setSearchText(text)
   }
+
+  const resultIsUserType = type === ResultType.USER
 
   return (
     <Wrapper>
@@ -67,23 +83,16 @@ export const Results: FC<Props> = (props) => {
           isFetchingRepository={isFetchingRepository}
         />
         <ResultPanel
-          userCount={userCount}
-          repoCount={repoCount}
           type={type}
-          repos={repos}
-          users={users}
-          isFetchingUsers={isFetchingUsers}
-          isFetchingRepository={isFetchingRepository}
+          resultIsUserType={resultIsUserType}
+          count={resultIsUserType ? userCount : repoCount}
+          list={resultIsUserType ? users : repos}
+          isFetching={resultIsUserType ? isFetchingUsers : isFetchingRepository}
         />
       </div>
       <Pagination
-        type={type}
-        userCount={userCount}
-        repoCount={repoCount}
-        userPageInfo={userPageInfo}
-        repoPageInfo={repoPageInfo}
-        isFetchingUsers={isFetchingUsers}
-        isFetchingRepository={isFetchingRepository}
+        count={resultIsUserType ? userCount : repoCount}
+        paginate={resultIsUserType ? paginateUser : paginateRepository}
       />
     </Wrapper>
   )
