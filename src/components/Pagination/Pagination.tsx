@@ -1,38 +1,34 @@
-import React, { FC } from 'react'
+import React, { FC, useRef, useCallback, useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate'
-import { ResultType } from '../types'
 import { Caret } from './Caret'
 import { Wrapper } from './PaginationStyles'
 
-const ITEMS_PER_PAGE = 10
+const RESULT_PER_PAGE = 10
 
 interface Props {
-  readonly userCount: number
-  readonly repoCount: number
-  readonly repoPageInfo?: {
-    endCursor: string
-    startCursor: string
-    hasNextPage: boolean
-  }
-  readonly userPageInfo?: {
-    endCursor: string
-    startCursor: string
-    hasNextPage: boolean
-  }
-  readonly isFetchingRepository: boolean
-  readonly isFetchingUsers: boolean
-  readonly type: ResultType
+  readonly count: number
+  readonly paginate: (offset: number) => void
 }
 
 export const Pagination: FC<Props> = (props) => {
-  const { type, userCount, repoCount } = props
-  const resultIsUserType = type === ResultType.USER
-  const count = resultIsUserType ? userCount : repoCount
-  const pageCount = Math.ceil(count / ITEMS_PER_PAGE)
+  const { count, paginate } = props
+  const [page, setPage] = useState(0)
+  const cache = useRef({})
+  const selected = useRef(0)
+  const pageCount = Math.ceil(count / RESULT_PER_PAGE)
 
-  const handlePageClick = (event) => {
-    console.log(event)
-  }
+  useEffect(() => {
+    selected.current = cache.current[count] || 0
+    setPage(selected.current)
+  }, [count])
+
+  const handlePageClick = useCallback((event: { selected: number }) => {
+    const offset = (event.selected - selected.current) * RESULT_PER_PAGE
+    selected.current = event.selected
+    cache.current[count] = event.selected
+    paginate(event.selected === 0 ? 0 : offset)
+    setPage(event.selected)
+  }, [count, paginate])
 
   return (
     <Wrapper>
@@ -45,7 +41,7 @@ export const Pagination: FC<Props> = (props) => {
         previousLabel={<Caret color="#FFFFFF" />}
         renderOnZeroPageCount={null}
         marginPagesDisplayed={1}
-        forcePage={0}
+        forcePage={page}
       />
     </Wrapper>
   )
