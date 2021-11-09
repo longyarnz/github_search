@@ -33,9 +33,9 @@ Launches the test runner in the terminal.
 yarn test
 ```
 
-## To Do: ADD MORE TEST!
+## TEST!
 
-The tests have only covered:
+The tests covers all composable component:
 - Avatar
 - GitHubButton
 - LoginWithGitHubButton
@@ -43,3 +43,7 @@ The tests have only covered:
 - RepoResultTab
 - UserResultTab
 - ResultButton
+- Searchbar
+- ResultSidebar
+- ResultPanel
+- useErrorHandler  
