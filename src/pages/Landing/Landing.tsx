@@ -13,7 +13,7 @@ export const Landing: FC<Props> = (props) => {
   const [loading, setLoading] = useState(false)
 
   const getAccessToken = async (code: string) => {
-    const url = process.env.REACT_APP_AUTH_URL
+    const url = process.env.REACT_APP_AUTH_URL as string
 
     const request = await fetch(url, {
       method: 'POST',

@@ -28,9 +28,9 @@ export const ResultPanel: FC<Props> = (props) => {
             listView={(item) => {
               let key = ''
               if (!resultIsUserType) {
-                item.language = item.languages.nodes[0]?.name ?? '-'
-                item.license = item.licenseInfo?.name ?? '-'
-                key = item.name
+                item.language = item?.languages?.nodes[0]?.name ?? '-'
+                item.license = item?.licenseInfo?.name ?? '-'
+                key = item.name ?? ''
               }
               else key = `${item.name}${item.bio || item.login}`
 
@@ -39,7 +39,7 @@ export const ResultPanel: FC<Props> = (props) => {
                   key={key}
                   {...item}
                 />
-              ) : null
+              ) : <></>
             }}
           />
         </ShouldRender>

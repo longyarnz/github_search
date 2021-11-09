@@ -4,7 +4,7 @@ import { GitHubButton } from '../GitHubButton/GitHubButton'
 
 interface Props {
   text: string
-  onClick?: (code?: string) => void
+  onClick: (code: string) => void
 }
 
 type LoginGitHubSuccess = {

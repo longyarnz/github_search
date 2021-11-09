@@ -5,8 +5,8 @@ import { Wrapper } from './SearchbarStyle'
 interface Props {
   readonly width?: number
   readonly height?: number
-  readonly form?: React.MutableRefObject<HTMLFormElement>
-  readonly getSearchText?: (text: string) => void
+  readonly form: React.RefObject<HTMLFormElement>
+  readonly getSearchText: (text: string) => void
 }
 
 export const Searchbar: FC<Props> = (props) => {
@@ -15,7 +15,8 @@ export const Searchbar: FC<Props> = (props) => {
 
   const onSubmit: ((event: React.FormEvent<HTMLFormElement>) => void) = (event) => {
     event.preventDefault()
-    getSearchText(inputRef.current?.value)
+    const query = inputRef.current?.value
+    query && getSearchText(query)
   }
 
   return (

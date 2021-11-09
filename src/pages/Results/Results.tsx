@@ -10,7 +10,6 @@ import {
   ResultPanel,
   ResultSidebar,
   Searchbar,
-  PageInterface,
   Pages,
   ResultType,
   Pagination,
@@ -21,9 +20,11 @@ import { GET_REPOSITORIES, GET_USERS } from './gql'
 import { Wrapper } from './ResultsStyles'
 import { useGitHubSearch } from './useGitHubSearch'
 
-interface Props extends PageInterface {
+interface Props {
   readonly query: string
-  readonly setSearchText?: React.Dispatch<React.SetStateAction<string>>
+  readonly setSearchText: React.Dispatch<React.SetStateAction<string>>
+  readonly changePageTo: React.Dispatch<React.SetStateAction<Pages>>
+  readonly logout: () => void
 }
 
 export const Results: FC<Props> = (props) => {

@@ -5,9 +5,11 @@ import { Landing, Search, Results } from '../pages';
 import { Wrapper } from './AppStyles'
 
 export const App = () => {
-  const [auth, setAuth] = useState<string>(sessionStorage.getItem('INDICINA_AUTH'))
+  const intialAuth = sessionStorage.getItem('INDICINA_AUTH') ?? ''
+  const intialQuery = sessionStorage.getItem('SEARCH_QUERY') ?? ''
+  const [auth, setAuth] = useState(intialAuth)
+  const [query, setQuery] = useState(intialQuery)
   const [page, setPage] = useState(auth ? Pages.SEARCH : Pages.LANDING)
-  const [query, setQuery] = useState(sessionStorage.getItem('SEARCH_QUERY'))
 
   useEffect(() => {
     auth && sessionStorage.setItem('INDICINA_AUTH', auth)

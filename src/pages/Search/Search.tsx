@@ -1,9 +1,10 @@
 import React, { FC, useRef } from 'react'
-import { Avatar, GitHubButton, GitLogo, PageInterface, Searchbar } from '../../components'
+import { Avatar, GitHubButton, GitLogo, Searchbar } from '../../components'
 import { Wrapper } from './SearchStyles'
 
-interface Props extends PageInterface {
-  readonly setSearchText?: React.Dispatch<React.SetStateAction<string>>
+interface Props {
+  readonly logout: () => void
+  readonly setSearchText: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const Search: FC<Props> = (props) => {

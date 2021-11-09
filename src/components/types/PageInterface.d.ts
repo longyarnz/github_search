@@ -4,11 +4,6 @@ export enum Pages {
   RESULT = 'result'
 }
 
-export interface PageInterface {
-  readonly changePageTo?: React.Dispatch<React.SetStateAction<Pages>>
-  readonly logout?: () => void
-}
-
 export enum ResultType {
   USER = 'user',
   REPOSITORY = 'repository'
