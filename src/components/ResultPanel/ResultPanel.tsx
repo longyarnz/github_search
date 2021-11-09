@@ -15,7 +15,7 @@ interface Props {
 export const ResultPanel: FC<Props> = (props) => {
   const { list, count, isFetching, resultIsUserType, type } = props
   const Tab = resultIsUserType ? UserResultTab : RepoResultTab
-  const header = isFetching ? 'Searching GitHub...' : `${Number(count).toLocaleString()} ${type} results`
+  const header = isFetching ? 'Searching GitHub...' : `${Number(count).toLocaleString()} ${type} result${count > 1 ? 's' : ''}`
   const loading = isFetching && list.length === 0
 
   return (
