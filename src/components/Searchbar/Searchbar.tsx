@@ -26,6 +26,7 @@ export const Searchbar: FC<Props> = (props) => {
         required={true}
         autoFocus={true}
         ref={inputRef}
+        placeholder="Search GitHub"
       />
 
       <button type="submit">
