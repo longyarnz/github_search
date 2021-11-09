@@ -13,7 +13,7 @@ interface Props {
 
 export const RepoResultTab: FC<Props> = (props) => {
   const { name, description, stars, language, license, time } = props
-  const footer = `${Number(stars).toLocaleString()}k Stars | ${language} | ${license} | Updated ${moment(time).fromNow()}`
+  const footer = `${Number(stars).toLocaleString()} Stars | ${language} | ${license} | Updated ${moment(time).fromNow()}`
 
   return (
     <Wrapper>
