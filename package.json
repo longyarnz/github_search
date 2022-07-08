@@ -10,7 +10,7 @@
     "@longyarnz/flat-list": "^1.0.0",
     "graphql": "15",
     "graphql-request": "^3.6.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-login-github": "^1.0.7",
